@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
 
   def new
+    if request.xhr?
+      render partial: 'new', :layout => false
+    end
   end
 
   def create
@@ -8,7 +11,9 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       flash[:notice] = "Thank you for logging in!"
       session[:user_id]= @user.id
-      redirect_to '/'
+      unless request.xhr?
+        redirect_to '/'
+      end
     else
       render 'new'
     end
