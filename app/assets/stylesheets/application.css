@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+.photo-card {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 9px;
+}
+
+.col-center{
+  margin:0 auto;
+}
