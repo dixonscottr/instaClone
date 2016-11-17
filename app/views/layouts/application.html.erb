@@ -6,14 +6,26 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <%= javascript_include_tag 'application' %>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
     <nav>
-      <li><a href= '/users/new'>Register</a></li>
-      <li><a href= '/sessions/new'>Login</a></li>
-      <li><a href= '/'>Home</a></li>
+      <% if logged_in? %>
+        <li><%= link_to "Logout", session_path(current_user), method: :delete %></li>
+        <li><%= link_to "My Profile", user_path(current_user) %> </li>
+      <% else %>
+        <li><%= link_to 'Register', new_user_path %></li>
+        <li><%= link_to 'Login', new_session_path %></li>
+      <% end %>
+      <li><%= link_to 'Home', root_path %></li>
     </nav>
+    <% flash.each do |flash, msg| %>
+      <%= msg %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
